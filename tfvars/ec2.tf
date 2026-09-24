@@ -9,9 +9,8 @@ resource "aws_instance" "example" {
     Environment = local.environment
   }
 }
-
 resource "aws_security_group" "allow_tls" {
-  name        = "allow-all-terraform-${local.environment}" # this is for AWS account
+  name        = "allow-all-terraform-${var.environment}"
   description = "Allow TLS inbound traffic and all outbound traffic"
 
   egress {
@@ -31,6 +30,6 @@ resource "aws_security_group" "allow_tls" {
   }
 
   tags = {
-    Name = "allow-all-terraform-${local.environment}"
+    Name = "allow-all-terraform-${var.environment}"
   }
 }
