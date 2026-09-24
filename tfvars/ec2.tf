@@ -1,12 +1,12 @@
 resource "aws_instance" "example" {
-  ami           = local.ami_id
-  instance_type = lookup(var.instance_type, local.environment)
+  ami                    = var.ami_id
+  instance_type          = lookup(var.instance_type, var.environment)
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
 
   tags = {
-    Name = "${var.project}-${local.environment}"
-    Project = "roboshop"
-    Environment = local.environment
+    Name        = "${var.project}-${var.environment}"
+    Project     = var.project
+    Environment = var.environment
   }
 }
 resource "aws_security_group" "allow_tls" {
