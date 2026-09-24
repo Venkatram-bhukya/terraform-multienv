@@ -1,11 +1,12 @@
 resource "aws_instance" "example" {
-  ami           = "ami-0220d79f3f480ecf5"
-  instance_type = var.instance_type
+  ami           = local.ami_id
+  instance_type = lookup(var.instance_type, local.environment)
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
 
   tags = {
-    Name = "terraform-state-demo-${var.environment}"
+    Name = "${var.project}-${local.environment}"
     Project = "roboshop"
+    Environment = local.environment
   }
 }
 
