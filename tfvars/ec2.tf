@@ -1,16 +1,16 @@
 resource "aws_instance" "example" {
-  ami                    = var.ami_id
-  instance_type          = lookup(var.instance_type, var.environment)
+  ami           = "ami-0220d79f3f480ecf5"
+  instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
 
   tags = {
-    Name        = "${var.project}-${var.environment}"
-    Project     = var.project
-    Environment = var.environment
+    Name = "terraform-state-demo-${var.environment}"
+    Project = "roboshop"
   }
 }
+
 resource "aws_security_group" "allow_tls" {
-  name        = "allow-all-terraform-${var.environment}"
+  name        = "allow-all-terraform-${var.environment}" # this is for AWS account
   description = "Allow TLS inbound traffic and all outbound traffic"
 
   egress {
